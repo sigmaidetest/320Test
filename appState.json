@@ -1,0 +1,269 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "13534764-9896-45e8-9f07-07113fe6e949": {
+        "id": "13534764-9896-45e8-9f07-07113fe6e949",
+        "parent": null,
+        "name": "319Test",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "ee7ab2e0-dc89-4dea-a36d-0233ecde1396",
+          "429a31e7-8ffe-4ecd-81f2-eb3f9c150cc6"
+        ],
+        "isRemovable": false,
+        "filePath": "319Test"
+      },
+      "ee7ab2e0-dc89-4dea-a36d-0233ecde1396": {
+        "id": "ee7ab2e0-dc89-4dea-a36d-0233ecde1396",
+        "parent": "13534764-9896-45e8-9f07-07113fe6e949",
+        "name": "lambda.js",
+        "type": "LAMBDA_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "319Test/lambda.js",
+        "code": "let AWS = require('aws-sdk');\nlet SL_AWS = require('slappforge-sdk-aws');\nconst sqs = new SL_AWS.SQS(AWS);\nexports.handler = function (event, context, callback) {\n\n\n    sqs.receiveMessage({\n        QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/319TestQueue',\n        AttributeNames: ['All'],\n        MaxNumberOfMessages: '1',\n        VisibilityTimeout: '30',\n        WaitTimeSeconds: '0'\n    }).promise()\n        .then(receivedMsgData => {\n            if (!!(receivedMsgData) && !!(receivedMsgData.Messages)) {\n                let receivedMessages = receivedMsgData.Messages;\n                receivedMessages.forEach(message => {\n                    console.log(message);\n                });\n                callback(null, 'Message processing finished!');\n            } else {\n                console.log('No messages to process!');\n                callback(null, 'No messages to process');\n            }\n        })\n        .catch(err => {\n            console.log('Error occurred', err);\n            callback(err);\n        });\n\n\n\n    // sqs.receiveMessage({\n    //     QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/319TestQueue',\n    //     AttributeNames: ['All'],\n    //     MaxNumberOfMessages: '1',\n    //     VisibilityTimeout: '30',\n    //     WaitTimeSeconds: '0'\n    // }).promise()\n    //     .then(receivedMsgData => {\n    //         if (receivedMsgData !== null) {\n    //             let receivedMessages = receivedMsgData.Messages;\n    //             receivedMessages.forEach(message => {\n    //                 console.log(message);\n    //             });\n    //             callback(null, 'Message processing finished');\n    //         } else {\n    //             console.log('No messages to process');\n    //             callback(null, 'No messages to process');\n    //         }\n    //     })\n    //     .catch(err => {\n    //         console.log('Error occurred', err);\n    //         callback(err);\n    //     });\n\n    // sqs.receiveMessage({\n    //     QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/319TestQueue',\n    //     AttributeNames: ['All'],\n    //     MaxNumberOfMessages: '1',\n    //     VisibilityTimeout: '30',\n    //     WaitTimeSeconds: '0'\n    // }, (err, receivedMsgData) => {\n    //     if (err) {\n    //         console.log('Error occurred', err);\n    //         callback(err);\n    //     } else {\n    //         if (receivedMsgData !== null) {\n    //             let receivedMessages = receivedMsgData.Messages;\n    //             receivedMessages.forEach(message => {\n    //                 console.log(message);\n    //             });\n    //             callback(null, 'Message processing finished');\n    //         } else {\n    //             console.log('No messages to process');\n    //             callback(null, 'No messages to process');\n    //         }\n    //     }\n    // });\n\n    // sqs.receiveAndDeleteMessages({\n    //     QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/319TestQueue',\n    //     AttributeNames: ['All'],\n    //     MaxNumberOfMessages: '1',\n    //     VisibilityTimeout: '30',\n    //     WaitTimeSeconds: '0'\n    // }, function (receivedMessages) {\n    //     // implement received message filtering logic here and return filtered set of messages which \n    //     // are allowed to delete in the next step\n    //     console.log(receivedMessages);\n    //     return receivedMessages || [];\n    // }, function (deleteSuccessData) {\n    //     console.log(deleteSuccessData);\n    //     callback(null, \"Success\");\n    //     // implement delete success state here\n    // }, function (error) {\n    //     console.log('Error', error);\n    //     callback(error);\n    //     // implement error handling logic here\n    // });\n\n\n\n\n\n\n}",
+        "triggers": [
+          {
+            "resourceName": "apigusEast1319Apitestget",
+            "config": {}
+          }
+        ],
+        "config": {
+          "memory": 128,
+          "timeout": 60,
+          "runtime": "nodejs8.10"
+        },
+        "testCases": {
+          "e2590d13-48ad-402a-a0dc-037d7a6498a9": {
+            "id": "e2590d13-48ad-402a-a0dc-037d7a6498a9",
+            "name": "Event 1",
+            "functionId": "ee7ab2e0-dc89-4dea-a36d-0233ecde1396",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
+      },
+      "429a31e7-8ffe-4ecd-81f2-eb3f9c150cc6": {
+        "id": "429a31e7-8ffe-4ecd-81f2-eb3f9c150cc6",
+        "parent": "13534764-9896-45e8-9f07-07113fe6e949",
+        "name": "jsfile.js",
+        "type": "JS_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "319Test/jsfile.js",
+        "code": "",
+        "triggers": []
+      }
+    },
+    "rootNode": "13534764-9896-45e8-9f07-07113fe6e949",
+    "openFiles": [
+      "ee7ab2e0-dc89-4dea-a36d-0233ecde1396"
+    ],
+    "currentFileId": "ee7ab2e0-dc89-4dea-a36d-0233ecde1396",
+    "resources": {
+      "apigusEast1319Apitestget": {
+        "name": "apigusEast1319Apitestget",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "319Api",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "test",
+          "resourcePath": "/test",
+          "restMethod": "GET",
+          "proxyIntegration": false,
+          "enableCORS": false,
+          "stageMode": 0,
+          "stageName": "test"
+        },
+        "globallyEditable": true
+      },
+      "sqsusEast1319TestQueue": {
+        "name": "sqsusEast1319TestQueue",
+        "type": "SQS",
+        "config": {
+          "mode": 0,
+          "existing": false,
+          "name": "319TestQueue",
+          "url": "https://sqs.us-east-1.amazonaws.com/318300609668/319TestQueue",
+          "selectedRegion": "us-east-1",
+          "deliveryDelay": 0,
+          "deliveryDelayUnit": "seconds",
+          "useRedrivePolicy": false,
+          "useSSE": false,
+          "kmsCustomerMasterKey": "default",
+          "accountId": "318300609668",
+          "dataKeyReusePeriod": 5,
+          "queueType": "standardQueue",
+          "defaultVisibilityTimeout": 30,
+          "defaultVisibilityTimeoutUnit": "seconds",
+          "messageRetentionPeriod": 4,
+          "messageRetentionPeriodUnit": "days",
+          "maximumMessageSize": 256,
+          "receiveMessageWaitTime": 0,
+          "deadLetterQueueName": "",
+          "contentBasedDeduplication": false,
+          "operation": 0,
+          "createdByApp": true
+        },
+        "globallyEditable": true,
+        "existing": false
+      }
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "editable": false,
+        "isEditable": false,
+        "shouldPersist": false,
+        "displayOnly": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "aws-sdk": {
+          "name": "aws-sdk",
+          "version": "2.176.0",
+          "notRemovable": true
+        },
+        "@slappforge/slappforge-sdk": {
+          "name": "@slappforge/slappforge-sdk",
+          "downloadsLast30Days": 1694,
+          "downloadsRatio": 0.00000850881869952936,
+          "humanDownloadsLast30Days": "1.7k",
+          "popular": false,
+          "version": "0.0.3",
+          "versions": {
+            "0.0.1": "2018-01-16T06:13:47.871Z",
+            "0.0.2": "2018-01-17T04:06:59.461Z",
+            "0.0.3": "2018-01-17T07:27:30.341Z"
+          },
+          "tags": {
+            "latest": "0.0.3"
+          },
+          "description": "A simple wrapper library for AWS SDK. This can be used with AWS Lambda functions.",
+          "dependencies": {
+            "mysql": "^2.15.0",
+            "aws-sdk": "^2.167.0",
+            "aws4": "^1.6.0"
+          },
+          "devDependencies": {},
+          "repository": null,
+          "githubRepo": null,
+          "gitHead": null,
+          "readme": "# slappforge-sdk\n",
+          "owner": {
+            "name": "slappforge-admin",
+            "email": "info@slappforge.com",
+            "avatar": "https://gravatar.com/avatar/31dae7dde4798ddfc2c05ee438a0ac70",
+            "link": "https://www.npmjs.com/~slappforge-admin"
+          },
+          "deprecated": false,
+          "homepage": null,
+          "license": "Apache-2.0",
+          "keywords": [],
+          "computedKeywords": [],
+          "computedMetadata": {},
+          "created": 1516083227871,
+          "modified": 1516174050341,
+          "lastPublisher": {
+            "name": "slappforge-admin",
+            "email": "info@slappforge.com",
+            "avatar": "https://gravatar.com/avatar/31dae7dde4798ddfc2c05ee438a0ac70",
+            "link": "https://www.npmjs.com/~slappforge-admin"
+          },
+          "owners": [
+            {
+              "name": "slappforge-admin",
+              "email": "info@slappforge.com",
+              "avatar": "https://gravatar.com/avatar/31dae7dde4798ddfc2c05ee438a0ac70",
+              "link": "https://www.npmjs.com/~slappforge-admin"
+            }
+          ],
+          "lastCrawl": "2018-04-17T16:26:44.050Z",
+          "_searchInternal": {
+            "concatenatedName": "slappforgeslappforgesdk",
+            "downloadsMagnitude": 4
+          },
+          "dependents": 0,
+          "humanDependents": "0",
+          "changelogFilename": null,
+          "objectID": "@slappforge/slappforge-sdk",
+          "_highlightResult": {
+            "name": {
+              "value": "@<em>slappforge</em>/<em>slappforge</em>-sdk",
+              "matchLevel": "full",
+              "fullyHighlighted": false,
+              "matchedWords": [
+                "slappforge"
+              ]
+            },
+            "description": {
+              "value": "A simple wrapper library for AWS SDK. This can be used with AWS Lambda functions.",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "owner": {
+              "name": {
+                "value": "<em>slappforge</em>-admin",
+                "matchLevel": "full",
+                "fullyHighlighted": false,
+                "matchedWords": [
+                  "slappforge"
+                ]
+              }
+            },
+            "owners": [
+              {
+                "name": {
+                  "value": "<em>slappforge</em>-admin",
+                  "matchLevel": "full",
+                  "fullyHighlighted": false,
+                  "matchedWords": [
+                    "slappforge"
+                  ]
+                }
+              }
+            ],
+            "_searchInternal": {
+              "concatenatedName": {
+                "value": "slappforgeslappforgesdk",
+                "matchLevel": "none",
+                "matchedWords": []
+              }
+            }
+          }
+        },
+        "slappforge-sdk-aws": {
+          "name": "slappforge-sdk-aws",
+          "version": "0.0.5",
+          "notRemovable": false
+        }
+      }
+    },
+    "lambdaId": "ee7ab2e0-dc89-4dea-a36d-0233ecde1396",
+    "additionalFiles": [],
+    "deletedFiles": []
+  },
+  "PROJECT_META": {
+    "projectName": "319Test",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "lastSave": 1541671738428
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "319Test",
+      "url": "https://github.com/sigmaidetest/320Test"
+    }
+  }
+}
